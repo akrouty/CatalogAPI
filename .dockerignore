@@ -1,0 +1,10 @@
+.env
+**/.git 
+**/.vs 
+**/.vscode 
+**/bin 
+**/obj 
+**/*.user 
+Dockerfile 
+compose.yaml 
+README.md 

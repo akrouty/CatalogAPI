@@ -62,8 +62,8 @@ app.MapPost("/api/create-product", async (Product product, AppDbContext db) =>
     );
 })
 .WithName("CreateProduct");
- 
 
+// GET : Récupérer un produit par ID
 app.MapGet("/api/get-product/{id:int}", async (int id, AppDbContext db) =>
 {
     var product = await db.Products.AsNoTracking()
@@ -81,5 +81,24 @@ app.MapGet("/api/get-product/{id:int}", async (int id, AppDbContext db) =>
 })
 .WithName("GetProductById");
 
+// DELETE : Supprimer un produit
+app.MapDelete("/api/products/{id:int}", async (int id, AppDbContext db) =>
+{
+    var product = await db.Products.FindAsync(id);
+
+    if (product is null)
+    {
+        return Results.NotFound(new
+        {
+            message = $"Aucun produit trouvé avec l'identifiant {id}."
+        });
+    }
+
+    db.Products.Remove(product);
+    await db.SaveChangesAsync();
+
+    return Results.NoContent();
+})
+.WithName("DeleteProduct");
 
 app.Run();

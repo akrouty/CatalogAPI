@@ -100,5 +100,5 @@ app.MapDelete("/api/products/{id:int}", async (int id, AppDbContext db) =>
     return Results.NoContent();
 })
 .WithName("DeleteProduct");
-
+// Test des pull requests !!!
 app.Run();
